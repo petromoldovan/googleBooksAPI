@@ -4,6 +4,7 @@ import { Router, Route, IndexRoute, browserHistory } from 'react-router';
 import { Provider } from 'react-redux';
 import { createStore, applyMiddleware } from 'redux';
 import createLogger from 'redux-logger';
+import thunk from 'redux-thunk';
 
 import coreReducer from './reducers';
 import App from './App';
@@ -15,7 +16,7 @@ const loggerMiddleware = createLogger({
 
 const store = createStore(
     coreReducer,
-    applyMiddleware(loggerMiddleware)
+    applyMiddleware(thunk, loggerMiddleware)
 );
 
 ReactDOM.render(
