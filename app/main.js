@@ -1,6 +1,27 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import App from './App.jsx';
+import { Router, Route, IndexRoute, browserHistory } from 'react-router';
+import { Provider } from 'react-redux';
+import { createStore, applyMiddleware } from 'redux';
+import createLogger from 'redux-logger';
+
+import coreReducer from './reducers';
+import App from './App';
 
 
-ReactDOM.render(<App />, document.getElementById('app'));
+const loggerMiddleware = createLogger({
+    stateTransformer: state => state.toJS()
+});
+
+const store = createStore(
+    coreReducer,
+    applyMiddleware(loggerMiddleware)
+);
+
+ReactDOM.render(
+    <Provider store={store}>
+        <Router history={browserHistory}>
+            <Route path="/" component={App} />
+        </Router>
+    </Provider>,
+    document.getElementById('app'));
