@@ -1,10 +1,12 @@
 import $ from 'superagent';
 
-const url = 'https://www.googleapis.com/books/v1/volumes?q=victor+hugo+miserables&printType=books&projection=lite'
+const url = 'https://www.googleapis.com/books/v1/volumes?printType=books&projection=lite&q=';
 
 class Api {
-	getBooks() {
-		return this.request('get', url)
+	getBooks(book) {
+        console.log(book)
+
+		return this.request('get', `${url}${book}`)
 	}
 
     request(method, url) {

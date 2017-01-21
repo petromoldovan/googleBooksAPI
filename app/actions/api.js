@@ -6,12 +6,12 @@ import {
 } from './state';
 
 
-export function getBooks() {
+export function getBooks(book) {
     return (dispatch) => {
         dispatch(setLoading(true));
 
         const api = new Api();
-        api.getBooks()
+        api.getBooks(book)
             .then((resp) => {
                 console.log(resp)
                 dispatch(setBooks(resp.items));
