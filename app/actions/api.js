@@ -1,9 +1,11 @@
 import Api from '../lib/api';
+import config from '../../config/base';
 import {
     setLoading,
     setBooks,
     setCustomError
 } from './state';
+
 
 
 export function getBooks(book) {
@@ -15,6 +17,11 @@ export function getBooks(book) {
             .then((resp) => {
                 console.log(resp)
                 dispatch(setBooks(resp.items));
+
+                const numberOfPages = Math.ceil(resp['totalItems'] / config.maxBooks);
+
+                console.log(numberOfPages)
+
                 dispatch(setLoading(false));
             })
             .catch((err) => {

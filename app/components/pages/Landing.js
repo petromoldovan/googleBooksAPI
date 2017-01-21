@@ -2,6 +2,7 @@ import React from 'react';
 import {Link} from 'react-router';
 
 import {getBooks} from '../../actions/api';
+import styles from './Landing';
 
 
 class Landing extends React.Component {
@@ -34,11 +35,15 @@ class Landing extends React.Component {
         if (!books) return null;
 
         return books.map((book, id) => {
-            console.log(book)
             return (
                 <Link to={book['id']} key={id} className="bookWrapper">
-                    <h3>{book['volumeInfo']['title'] ? book['volumeInfo']['title'] : 'no title'}</h3>
-                    <h4>{book['volumeInfo']['authors'] ? book['volumeInfo']['authors'][0] : 'no author'}</h4>
+                    <div>
+                        <div>{book['volumeInfo']['title'] ? book['volumeInfo']['title'] : 'no title'}</div>
+                        <div>{book['volumeInfo']['subtitle'] ? book['volumeInfo']['subtitle'] : 'no subtitle'}</div>
+                        <div>{book['volumeInfo']['authors'] ? book['volumeInfo']['authors'][0] : 'no author'}</div>
+                        <div>{book['volumeInfo']['publishedDate'] ? book['volumeInfo']['publishedDate'] : 'no data'}</div>
+
+                    </div>
                 </Link>
             )
         })

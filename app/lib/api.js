@@ -1,11 +1,11 @@
 import $ from 'superagent';
 
-const url = 'https://www.googleapis.com/books/v1/volumes?printType=books&projection=lite&q=';
+import config from '../../config/base';
+
+const url = `${config.base_url}?printType=books&maxResults=${config.maxBooks}&q=`;
 
 class Api {
 	getBooks(book) {
-        console.log(book)
-
 		return this.request('get', `${url}${book}`)
 	}
 
