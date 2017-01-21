@@ -2,7 +2,7 @@ import React from 'react';
 import {Link} from 'react-router';
 
 import {getBooks} from '../../actions/api';
-import styles from './Landing';
+import styles from './Landing.css';
 
 
 class Landing extends React.Component {
@@ -36,13 +36,12 @@ class Landing extends React.Component {
 
         return books.map((book, id) => {
             return (
-                <Link to={book['id']} key={id} className="bookWrapper">
-                    <div>
-                        <div>{book['volumeInfo']['title'] ? book['volumeInfo']['title'] : 'no title'}</div>
-                        <div>{book['volumeInfo']['subtitle'] ? book['volumeInfo']['subtitle'] : 'no subtitle'}</div>
-                        <div>{book['volumeInfo']['authors'] ? book['volumeInfo']['authors'][0] : 'no author'}</div>
-                        <div>{book['volumeInfo']['publishedDate'] ? book['volumeInfo']['publishedDate'] : 'no data'}</div>
-
+                <Link to={book['id']} key={id}>
+                    <div className={styles.bookRow}>
+                        <span>{book['volumeInfo']['title'] ? book['volumeInfo']['title'] : 'no title'}</span>
+                        <span>{book['volumeInfo']['subtitle'] ? book['volumeInfo']['subtitle'] : 'no subtitle'}</span>
+                        <span>{book['volumeInfo']['authors'] ? book['volumeInfo']['authors'][0] : 'no author'}</span>
+                        <span>{book['volumeInfo']['publishedDate'] ? book['volumeInfo']['publishedDate'] : 'no data'}</span>
                     </div>
                 </Link>
             )
@@ -54,7 +53,7 @@ class Landing extends React.Component {
         const {search} = this.state;
 
         return (
-            <div>
+            <div className={styles.container}>
                 <input type="text" name="search" value={search} onChange={this.onChange} />
                 <button onClick={this.onSubmit}>click me</button>
 
