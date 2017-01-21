@@ -7,7 +7,9 @@ import createLogger from 'redux-logger';
 import thunk from 'redux-thunk';
 
 import coreReducer from './reducers';
-import App from './App';
+import App from './containers/App';
+import Landing from './containers/pages/Landing';
+import Details from './containers/pages/Details';
 
 
 const loggerMiddleware = createLogger({
@@ -22,7 +24,10 @@ const store = createStore(
 ReactDOM.render(
     <Provider store={store}>
         <Router history={browserHistory}>
-            <Route path="/" component={App} />
+            <Route path="/" component={App} >
+                <IndexRoute component={Landing} />
+                <Route path="/book/:id" component={Details} />
+            </Route>
         </Router>
     </Provider>,
     document.getElementById('app'));
