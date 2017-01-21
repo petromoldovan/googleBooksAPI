@@ -3,8 +3,6 @@ import $ from 'superagent';
 const url = 'https://www.googleapis.com/books/v1/volumes?q=victor+hugo+miserables&printType=books&projection=lite'
 
 class Api {
-
-
 	getBooks() {
 		return this.request('get', url)
 	}
