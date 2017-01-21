@@ -1,4 +1,5 @@
 import React from 'react';
+import {Link} from 'react-router';
 
 import {getBooks} from '../../actions/api';
 
@@ -35,11 +36,10 @@ class Landing extends React.Component {
         return books.map((book, id) => {
             console.log(book)
             return (
-                <div key={id} className="bookWrapper">
-
+                <Link to={book['id']} key={id} className="bookWrapper">
                     <h3>{book['volumeInfo']['title'] ? book['volumeInfo']['title'] : 'no title'}</h3>
                     <h4>{book['volumeInfo']['authors'] ? book['volumeInfo']['authors'][0] : 'no author'}</h4>
-                </div>
+                </Link>
             )
         })
 

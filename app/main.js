@@ -26,7 +26,7 @@ ReactDOM.render(
         <Router history={browserHistory}>
             <Route path="/" component={App} >
                 <IndexRoute component={Landing} />
-                <Route path="/book/:id" component={Details} />
+                <Route path="/:id" component={Details} />
             </Route>
         </Router>
     </Provider>,
