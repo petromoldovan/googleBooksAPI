@@ -1,6 +1,7 @@
 import React from 'react';
 import {Link} from 'react-router';
 
+import config from '../../../config/base';
 import {getBooks} from '../../actions/api';
 import styles from './Landing.css';
 
@@ -21,12 +22,23 @@ class Landing extends React.Component {
         this.setState({[e.target.name]: e.target.value});
     };
 
-    onSubmit() {
-        const {getBooks} = this.props;
-        let searchValue = this.state.search;
-        searchValue = searchValue.toLowerCase().split(' ').join('+');
+    onSubmit(startIndex) {
+        const {getBooks, setPaginationActivePage} = this.props;
+        let {search} = this.state;
+        search = search.toLowerCase().split(' ').join('+');
 
-        if (getBooks && getBooks instanceof Function) getBooks(searchValue)
+        //show next n books
+        if (startIndex) {
+            if (setPaginationActivePage && setPaginationActivePage instanceof Function) setPaginationActivePage(startIndex);
+            startIndex = config.maxBooks * startIndex + 1;
+        }
+
+        const data = {
+            searchValue: search,
+            startIndex: startIndex ? startIndex : 0
+        };
+
+        if (getBooks && getBooks instanceof Function) getBooks(data)
     }
 
     renderBooks() {
@@ -50,16 +62,18 @@ class Landing extends React.Component {
     }
 
     renderPagination() {
-        const {books, pagination} = this.props;
+        const {books, paginationTotalPages, paginationActivePage} = this.props;
 
-        if (!books || !pagination) return null;
+        if (!books || !paginationTotalPages) return null;
 
-        let rows = [];
-        for (let i = 1; (i -1) < pagination; i++) {
-            rows.push(<span key={i} >{i}</span>)
+        let paginationBoxes = [];
+        for (let i = 1; (i -1) < paginationTotalPages; i++) {
+            let className = '';
+            if (paginationActivePage && paginationActivePage === i) className = 'active';
+            paginationBoxes.push(<a className={styles[className]} key={i} value={i} onClick={()=>this.onSubmit(i)}>{i}</a>)
         }
 
-        return (<div>{rows}</div>)
+        return (<div>{paginationBoxes}</div>)
     }
 
     render() {
@@ -68,7 +82,7 @@ class Landing extends React.Component {
         return (
             <div className={styles.container}>
                 <input type="text" name="search" value={search} onChange={this.onChange} />
-                <button onClick={this.onSubmit}>click me</button>
+                <button onClick={() => this.onSubmit()}>click me</button>
 
                 {this.renderBooks()}
                 {this.renderPagination()}

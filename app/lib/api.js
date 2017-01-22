@@ -2,11 +2,11 @@ import $ from 'superagent';
 
 import config from '../../config/base';
 
-const url = `${config.base_url}?printType=books&maxResults=${config.maxBooks}&q=`;
 
 class Api {
-	getBooks(book) {
-		return this.request('get', `${url}${book}`)
+	getBooks(data) {
+        console.log(data)
+		return this.request('get', `${config.base_url}?printType=books&maxResults=${config.maxBooks}&q=${data.searchValue}&startIndex=${data.startIndex}`)
 	}
 
     request(method, url) {

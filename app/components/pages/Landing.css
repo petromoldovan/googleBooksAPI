@@ -14,3 +14,6 @@
     width: 20%;
     text-align: center;
 }
+.active {
+    color: #bf616a;
+}

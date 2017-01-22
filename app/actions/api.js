@@ -4,23 +4,23 @@ import {
     setLoading,
     setBooks,
     setCustomError,
-    setPagination
+    setPaginationPages
 } from './state';
 
 
 
-export function getBooks(book) {
+export function getBooks(data) {
     return (dispatch) => {
         dispatch(setLoading(true));
 
         const api = new Api();
-        api.getBooks(book)
+        api.getBooks(data)
             .then((resp) => {
                 console.log(resp)
                 dispatch(setBooks(resp.items));
 
                 const numberOfPages = Math.ceil(resp['totalItems'] / config.maxBooks);
-                dispatch(setPagination(numberOfPages));
+                dispatch(setPaginationPages(numberOfPages));
 
                 dispatch(setLoading(false));
             })

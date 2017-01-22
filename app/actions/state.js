@@ -22,9 +22,16 @@ export function setCustomError(err) {
     }
 }
 
-export function setPagination(number) {
+export function setPaginationPages(number) {
     return {
-        type: constants.SET_PAGINATION,
+        type: constants.SET_PAGINATION_TOTAL,
+        payload: number
+    }
+}
+
+export function setPaginationActivePage(number) {
+    return {
+        type: constants.SET_PAGINATION_ACTIVE_PAGE,
         payload: number
     }
 }

@@ -15,8 +15,12 @@ function setCustomError(state, action) {
     return state.setIn(['ui', 'customError'], action.payload)
 }
 
-function setPagination(state, action) {
-    return state.setIn(['ui', 'pagination'], action.payload)
+function setPaginationTotal(state, action) {
+    return state.setIn(['ui', 'pagination', 'total'], action.payload)
+}
+
+function setPaginationActivePage(state, action) {
+    return state.setIn(['ui', 'pagination', 'activePage'], action.payload)
 }
 
 function coreReducer(state = fromJS({}), action) {
@@ -32,8 +36,11 @@ function coreReducer(state = fromJS({}), action) {
         case constants.SET_CUSTOM_ERROR:
           newState = setCustomError(state, action);
           break;
-        case constants.SET_PAGINATION:
-          newState = setPagination(state, action);
+        case constants.SET_PAGINATION_TOTAL:
+          newState = setPaginationTotal(state, action);
+          break;
+        case constants.SET_PAGINATION_ACTIVE_PAGE:
+          newState = setPaginationActivePage(state, action);
           break;
         default:
           newState = state;
