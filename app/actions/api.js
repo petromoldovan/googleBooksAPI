@@ -22,6 +22,13 @@ export function getBooks(data) {
                 const numberOfPages = Math.ceil(resp['totalItems'] / config.maxBooks);
                 dispatch(setPaginationPages(numberOfPages));
 
+                //handle errors
+                if (numberOfPages === 0) {
+                    dispatch(setCustomError({message: "None of our books matched your request", status: "404"}));
+                } else {
+                    dispatch(setCustomError(''));
+                }
+
                 dispatch(setLoading(false));
             })
             .catch((err) => {

@@ -4,6 +4,7 @@ import {Link} from 'react-router';
 import config from '../../../config/base';
 import {getBooks} from '../../actions/api';
 import styles from './Landing.css';
+import Spinner from '../../common/Spinner';
 
 
 class Landing extends React.Component {
@@ -49,10 +50,12 @@ class Landing extends React.Component {
         return books.map((book, id) => {
             return (
                 <Link to={book['id']} key={id}>
-                    <div className={styles.bookRow}>
+                    <div className={styles.BookRow}>
                         <span>{book['volumeInfo']['title'] ? book['volumeInfo']['title'] : 'no title'}</span>
                         <span>{book['volumeInfo']['subtitle'] ? book['volumeInfo']['subtitle'] : 'no subtitle'}</span>
-                        <span>{book['volumeInfo']['authors'] ? book['volumeInfo']['authors'][0] : 'no author'}</span>
+                        <span>
+                            {book['volumeInfo']['authors'] ? book['volumeInfo']['authors'].forEach((author)=>author) : 'no author'}
+                        </span>
                         <span>{book['volumeInfo']['publishedDate'] ? book['volumeInfo']['publishedDate'] : 'no data'}</span>
                     </div>
                 </Link>
@@ -70,10 +73,26 @@ class Landing extends React.Component {
         for (let i = 1; (i -1) < paginationTotalPages; i++) {
             let className = '';
             if (paginationActivePage && paginationActivePage === i) className = 'active';
-            paginationBoxes.push(<a className={styles[className]} key={i} value={i} onClick={()=>this.onSubmit(i)}>{i}</a>)
+            paginationBoxes.push(<span className={styles[className]} key={i} onClick={()=>this.onSubmit(i)}>{i}</span>)
         }
 
-        return (<div>{paginationBoxes}</div>)
+        return (<div className={styles.Pagination}>{paginationBoxes}</div>)
+    }
+
+    renderSpinner() {
+        const {isLoading} = this.props;
+
+        if(!isLoading) return null;
+
+        return <Spinner />
+    }
+
+    renderError() {
+        const {customError} = this.props;
+
+        if(!customError) return null;
+
+        return <div className={styles.Error}>Error {customError.status}: {customError.message}</div>
     }
 
     render() {
@@ -81,8 +100,12 @@ class Landing extends React.Component {
 
         return (
             <div className={styles.container}>
-                <input type="text" name="search" value={search} onChange={this.onChange} />
-                <button onClick={() => this.onSubmit()}>click me</button>
+                {this.renderSpinner()}
+                <div className={styles.Form}>
+                    <input type="text" name="search" value={search} onChange={this.onChange} />
+                    <button onClick={() => this.onSubmit()}>Get The Book!</button>
+                </div>
+                {this.renderError()}
 
                 {this.renderBooks()}
                 {this.renderPagination()}

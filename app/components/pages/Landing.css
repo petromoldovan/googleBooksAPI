@@ -7,13 +7,67 @@
     width: 100%;
     text-align: center;
 }
-.bookRow {
-     display: block;
+.BookRow {
+    display: flex;
 }
-.bookRow span {
-    width: 20%;
+.BookRow span {
+    padding: 10px;
     text-align: center;
+    border: 1px solid #1d9aca;
+    display: inline-block;
+    width: 15%;
+    /*overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;*/
+    color: #000000;
 }
-.active {
-    color: #bf616a;
+.BookRow span:first-child {
+    width: 35%;
+}
+.Pagination {
+    margin-top: 20px;
+}
+.Pagination span,.Form button {
+    cursor: pointer;
+    display: inline-block;
+    padding: 10px;
+    width: 20px;
+    border: 1px solid #1d9aca;
+    color: #1d9aca;
+    background-color: #fff;
+    -webkit-transition: all 500ms ease-out;
+    -moz-transition: all 500ms ease-out;
+    -o-transition: all 500ms ease-out;
+    transition: all 500ms ease-out;
+
+}
+.Pagination span.active,
+.Pagination span:hover,
+.Form button:hover {
+    color: #fff;
+    background-color: #1d9aca;
+}
+.Form {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 20px;
+}
+.Form input {
+    border: 2px solid #1d9aca;
+    border-radius: 10px;
+    display: block;
+    padding: 10px;
+    margin-right: 30px;
+    width: 300px;
+    outline: none;
+}
+.Form button {
+    display: block;
+    width: 150px;
+    border: 2px solid #1d9aca;
+    outline: none;
+}
+.Error {
+    color: #e45454;
 }
