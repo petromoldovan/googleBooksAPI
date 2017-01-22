@@ -49,6 +49,19 @@ class Landing extends React.Component {
 
     }
 
+    renderPagination() {
+        const {books, pagination} = this.props;
+
+        if (!books || !pagination) return null;
+
+        let rows = [];
+        for (let i = 1; (i -1) < pagination; i++) {
+            rows.push(<span key={i} >{i}</span>)
+        }
+
+        return (<div>{rows}</div>)
+    }
+
     render() {
         const {search} = this.state;
 
@@ -58,6 +71,7 @@ class Landing extends React.Component {
                 <button onClick={this.onSubmit}>click me</button>
 
                 {this.renderBooks()}
+                {this.renderPagination()}
             </div>
         );
     }

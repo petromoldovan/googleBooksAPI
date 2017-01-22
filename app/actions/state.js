@@ -21,3 +21,10 @@ export function setCustomError(err) {
         payload: err
     }
 }
+
+export function setPagination(number) {
+    return {
+        type: constants.SET_PAGINATION,
+        payload: number
+    }
+}

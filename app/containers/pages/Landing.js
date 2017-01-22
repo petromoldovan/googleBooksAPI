@@ -8,8 +8,9 @@ import LandingPage from '../../components/pages/Landing';
 function mapStateToProps(state) {
     let books = state.getIn(['data', 'books'], null);
     books = books ? books.toJS() : null;
+    const pagination = state.getIn(['ui', 'pagination'], null);
 
-    return {books}
+    return {books, pagination}
 }
 
 function mapDispatchToProps(dispatch) {

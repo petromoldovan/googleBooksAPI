@@ -3,7 +3,8 @@ import config from '../../config/base';
 import {
     setLoading,
     setBooks,
-    setCustomError
+    setCustomError,
+    setPagination
 } from './state';
 
 
@@ -19,8 +20,7 @@ export function getBooks(book) {
                 dispatch(setBooks(resp.items));
 
                 const numberOfPages = Math.ceil(resp['totalItems'] / config.maxBooks);
-
-                console.log(numberOfPages)
+                dispatch(setPagination(numberOfPages));
 
                 dispatch(setLoading(false));
             })
