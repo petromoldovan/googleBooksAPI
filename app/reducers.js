@@ -23,6 +23,10 @@ function setPaginationActivePage(state, action) {
     return state.setIn(['ui', 'pagination', 'activePage'], action.payload)
 }
 
+function setSelectedBook(state, action) {
+    return state.setIn(['data', 'selectedBook'], fromJS(action.payload))
+}
+
 function coreReducer(state = fromJS({}), action) {
     let newState;
 
@@ -41,6 +45,9 @@ function coreReducer(state = fromJS({}), action) {
           break;
         case constants.SET_PAGINATION_ACTIVE_PAGE:
           newState = setPaginationActivePage(state, action);
+          break;
+        case constants.SET_SELECTED_BOOK:
+          newState = setSelectedBook(state, action);
           break;
         default:
           newState = state;

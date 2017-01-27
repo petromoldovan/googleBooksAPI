@@ -5,9 +5,12 @@ import config from '../../config/base';
 
 class Api {
 	getBooks(data) {
-        console.log(data)
 		return this.request('get', `${config.base_url}?printType=books&maxResults=${data.booksPerPage}&q=${data.searchValue}&startIndex=${data.startIndex}`)
 	}
+
+    getBookByID(id) {
+        return this.request('get', `${config.base_url}/${id}`)
+    }
 
     request(method, url) {
         return new Promise((resolve, reject) => {

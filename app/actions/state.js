@@ -35,3 +35,10 @@ export function setPaginationActivePage(number) {
         payload: number
     }
 }
+
+export function setSelectedBook(data) {
+    return {
+        type: constants.SET_SELECTED_BOOK,
+        payload: data
+    }
+}

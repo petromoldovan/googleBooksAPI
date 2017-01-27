@@ -4,7 +4,8 @@ import {
     setLoading,
     setBooks,
     setCustomError,
-    setPaginationPages
+    setPaginationPages,
+    setSelectedBook
 } from './state';
 
 export function getBooks(data) {
@@ -14,8 +15,7 @@ export function getBooks(data) {
         const api = new Api();
         api.getBooks(data)
             .then((resp) => {
-                console.log(resp)
-                dispatch(setBooks(resp.items));
+                if(resp.items) dispatch(setBooks(resp.items));
 
                 const numberOfPages = Math.ceil(resp['totalItems'] / data.booksPerPage);
                 dispatch(setPaginationPages(numberOfPages));
@@ -30,8 +30,25 @@ export function getBooks(data) {
                 dispatch(setLoading(false));
             })
             .catch((err) => {
-                console.log(err)
                 dispatch(setCustomError(err));
+                dispatch(setLoading(false));
+            })
+    }
+}
+
+export function getBookByID(id){
+    return(dispatch) => {
+        dispatch(setLoading(true));
+
+        const api = new Api();
+        api.getBookByID(id)
+            .then((res)=>{
+                console.log(res)
+                dispatch(setSelectedBook(res));
+                dispatch(setLoading(false));
+            })
+            .catch((err)=>{
+                console.log(err)
                 dispatch(setLoading(false));
             })
     }

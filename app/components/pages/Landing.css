@@ -1,12 +1,3 @@
-.container {
-    position: relative;
-    max-width: 990px;
-    height: 100%;
-    margin: 0 auto;
-    padding: 0;
-    width: 100%;
-    text-align: center;
-}
 .BookRow {
     display: flex;
 }

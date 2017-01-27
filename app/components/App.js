@@ -9,7 +9,9 @@ class App extends React.Component {
 
         return (
             <div className={styles.AppContainer}>
-                {React.cloneElement(this.props.children, {isLoading, customError})}
+                <div className={styles.container}>
+                    {React.cloneElement(this.props.children, {isLoading, customError})}
+                </div>
             </div>
         )
     }

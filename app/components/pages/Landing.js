@@ -117,7 +117,7 @@ class Landing extends React.Component {
         const {search} = this.state;
 
         return (
-            <div className={styles.container}>
+            <div>
                 {this.renderSpinner()}
                 <div className={styles.Form}>
                     <input type="text" name="search" value={search} onChange={this.onChange} />
