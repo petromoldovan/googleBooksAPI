@@ -12,11 +12,13 @@ class Landing extends React.Component {
         super(props);
 
         this.state = {
-            search: ''
+            search: '',
+            booksPerPage: 20
         };
 
         this.onChange = this.onChange.bind(this);
         this.onSubmit = this.onSubmit.bind(this);
+        this.onChangeDropdown = this.onChangeDropdown.bind(this);
     }
 
     onChange(e) {
@@ -25,18 +27,19 @@ class Landing extends React.Component {
 
     onSubmit(startIndex) {
         const {getBooks, setPaginationActivePage} = this.props;
-        let {search} = this.state;
+        let {search, booksPerPage} = this.state;
         search = search.toLowerCase().split(' ').join('+');
 
         //show next n books
         if (startIndex) {
             if (setPaginationActivePage && setPaginationActivePage instanceof Function) setPaginationActivePage(startIndex);
-            startIndex = config.maxBooks * startIndex + 1;
+            startIndex = booksPerPage * startIndex + 1;
         }
 
         const data = {
             searchValue: search,
-            startIndex: startIndex ? startIndex : 0
+            startIndex: startIndex ? startIndex : 0,
+            booksPerPage: booksPerPage
         };
 
         if (getBooks && getBooks instanceof Function) getBooks(data)
@@ -95,6 +98,21 @@ class Landing extends React.Component {
         return <div className={styles.Error}>Error {customError.status}: {customError.message}</div>
     }
 
+    onChangeDropdown(e) {
+        this.setState({booksPerPage: e.target.value});
+        if(this.state.search) this.onSubmit();
+    }
+
+    renderDropdown() {
+        return (
+            <select value={this.state.booksPerPage} onChange={this.onChangeDropdown}>
+                <option value="10">10</option>
+                <option value="20">20</option>
+                <option value="40">40</option>
+            </select>
+        )
+    }
+
     render() {
         const {search} = this.state;
 
@@ -104,6 +122,7 @@ class Landing extends React.Component {
                 <div className={styles.Form}>
                     <input type="text" name="search" value={search} onChange={this.onChange} />
                     <button onClick={() => this.onSubmit()}>Get The Book!</button>
+                    {this.renderDropdown()}
                 </div>
                 {this.renderError()}
 

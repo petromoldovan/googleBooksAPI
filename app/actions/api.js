@@ -7,8 +7,6 @@ import {
     setPaginationPages
 } from './state';
 
-
-
 export function getBooks(data) {
     return (dispatch) => {
         dispatch(setLoading(true));
@@ -19,7 +17,7 @@ export function getBooks(data) {
                 console.log(resp)
                 dispatch(setBooks(resp.items));
 
-                const numberOfPages = Math.ceil(resp['totalItems'] / config.maxBooks);
+                const numberOfPages = Math.ceil(resp['totalItems'] / data.booksPerPage);
                 dispatch(setPaginationPages(numberOfPages));
 
                 //handle errors

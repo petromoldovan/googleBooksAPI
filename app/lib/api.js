@@ -6,7 +6,7 @@ import config from '../../config/base';
 class Api {
 	getBooks(data) {
         console.log(data)
-		return this.request('get', `${config.base_url}?printType=books&maxResults=${config.maxBooks}&q=${data.searchValue}&startIndex=${data.startIndex}`)
+		return this.request('get', `${config.base_url}?printType=books&maxResults=${data.booksPerPage}&q=${data.searchValue}&startIndex=${data.startIndex}`)
 	}
 
     request(method, url) {
