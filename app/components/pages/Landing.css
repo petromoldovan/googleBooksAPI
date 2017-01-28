@@ -1,17 +1,33 @@
-.BookRow div {
+.BookRow div, .tableHeader {
     display: flex;
 }
-.BookRow div div:first-child {
-    width: 35%;
-}
-.BookRow div div {
+.BookRow div div,
+.tableHeader div {
     float: left;
     padding: 10px;
     text-align: center;
     border: 1px solid #1d9aca;
-    display: inline-block;
     width: 15%;
     color: #000000;
+    align-items: center;
+    display: flex;
+    justify-content: center;
+}
+.BookRow div div:first-child,
+.tableHeader div:first-child {
+    width: 35%;
+    border-left: 2px solid #1d9aca;
+}
+.BookRow div div:last-child,
+.tableHeader div:last-child {
+    border-right: 2px solid #1d9aca;
+}
+.table a:last-child .BookRow div div {
+    border-bottom: 2px solid #1d9aca;
+}
+.tableHeader div {
+    background: #1d9aca;
+    color: #fff;
 }
 .Pagination {
     margin-top: 20px;

@@ -28,6 +28,9 @@ class Landing extends React.Component {
     onSubmit(startIndex) {
         const {getBooks, setPaginationActivePage} = this.props;
         let {search, booksPerPage} = this.state;
+
+        if(!search) return null;
+
         search = search.toLowerCase().split(' ').join('+');
 
         //show next n books
@@ -45,6 +48,21 @@ class Landing extends React.Component {
         if (getBooks && getBooks instanceof Function) getBooks(data)
     }
 
+    renderTableHeader() {
+        const {books} = this.props;
+
+        if (!books) return null;
+
+        return (
+            <div className={styles.tableHeader}>
+                <div>Title</div>
+                <div>Subtitle</div>
+                <div>Authors</div>
+                <div>Published Date</div>
+            </div>
+        )
+    }
+
     renderBooks() {
         const {books} = this.props;
 
@@ -55,12 +73,10 @@ class Landing extends React.Component {
                 <Link to={book['id']} key={id}>
                     <div className={styles.BookRow}>
                         <Book {...book['volumeInfo']} />
-
                     </div>
                 </Link>
             )
         })
-
     }
 
     renderPagination() {
@@ -75,7 +91,11 @@ class Landing extends React.Component {
             paginationBoxes.push(<span className={styles[className]} key={i} onClick={()=>this.onSubmit(i)}>{i}</span>)
         }
 
-        return (<div className={styles.Pagination}>{paginationBoxes}</div>)
+        return (
+            <div className={styles.Pagination}>
+                {paginationBoxes}
+            </div>
+        )
     }
 
     renderSpinner() {
@@ -117,12 +137,16 @@ class Landing extends React.Component {
                 {this.renderSpinner()}
                 <div className={styles.Form}>
                     <input type="text" name="search" value={search} onChange={this.onChange} />
-                    <button onClick={() => this.onSubmit()}>Get The Book!</button>
+                    <button onClick={this.onSubmit}>Get The Book!</button>
                     {this.renderDropdown()}
                 </div>
                 {this.renderError()}
 
-                {this.renderBooks()}
+                <div className={styles.table}>
+                    {this.renderTableHeader()}
+                    {this.renderBooks()}
+                </div>
+
                 {this.renderPagination()}
             </div>
         );

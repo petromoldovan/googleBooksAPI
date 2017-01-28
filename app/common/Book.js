@@ -39,7 +39,7 @@ class Book extends React.Component {
 
         let data = Object.keys(bookMap).map((key, id)=>{
 
-            if(!bookMap[key]) return (detailsPage ? null : <div>no data</div>);
+            if(!bookMap[key]) return (detailsPage ? null : <div key={id}>no data</div>);
 
             return (
                 <div key={id}>
@@ -47,9 +47,6 @@ class Book extends React.Component {
                     <span>{key === "authors" ? this.rederAuthors(bookMap[key]) : bookMap[key]}</span>
                 </div>)
         });
-
-        console.log(data)
-        console.log(typeof data)
 
         return <div>{data}</div>
     }
