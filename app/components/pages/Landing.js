@@ -4,7 +4,7 @@ import {Link} from 'react-router';
 import config from '../../../config/base';
 import {getBooks} from '../../actions/api';
 import styles from './Landing.css';
-import {Spinner} from '../../common/';
+import {Spinner, Book} from '../../common/';
 
 
 class Landing extends React.Component {
@@ -54,12 +54,8 @@ class Landing extends React.Component {
             return (
                 <Link to={book['id']} key={id}>
                     <div className={styles.BookRow}>
-                        <span>{book['volumeInfo']['title'] ? book['volumeInfo']['title'] : 'no title'}</span>
-                        <span>{book['volumeInfo']['subtitle'] ? book['volumeInfo']['subtitle'] : 'no subtitle'}</span>
-                        <span>
-                            {book['volumeInfo']['authors'] ? book['volumeInfo']['authors'].forEach((author)=>author) : 'no author'}
-                        </span>
-                        <span>{book['volumeInfo']['publishedDate'] ? book['volumeInfo']['publishedDate'] : 'no data'}</span>
+                        <Book {...book['volumeInfo']} />
+
                     </div>
                 </Link>
             )

@@ -1,19 +1,17 @@
-.BookRow {
+.BookRow div {
     display: flex;
 }
-.BookRow span {
+.BookRow div div:first-child {
+    width: 35%;
+}
+.BookRow div div {
+    float: left;
     padding: 10px;
     text-align: center;
     border: 1px solid #1d9aca;
     display: inline-block;
     width: 15%;
-    /*overflow: hidden;
-    white-space: nowrap;
-    text-overflow: ellipsis;*/
     color: #000000;
-}
-.BookRow span:first-child {
-    width: 35%;
 }
 .Pagination {
     margin-top: 20px;
@@ -30,7 +28,6 @@
     -moz-transition: all 500ms ease-out;
     -o-transition: all 500ms ease-out;
     transition: all 500ms ease-out;
-
 }
 .Pagination span.active,
 .Pagination span:hover,

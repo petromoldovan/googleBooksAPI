@@ -49,7 +49,7 @@ class Details extends React.Component {
                           <img src={img} alt="book preview" />
                       </div>
                       <div className={styles.leftSide}>
-                          <Book {...bookInfo} />
+                          <Book {...bookInfo} detailsPage="true" />
                       </div>
                   </div>
               </div>
