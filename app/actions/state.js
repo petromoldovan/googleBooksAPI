@@ -42,3 +42,9 @@ export function setSelectedBook(data) {
         payload: data
     }
 }
+
+export function resetSelectedBook() {
+    return {
+        type: constants.RESET_SELECTED_BOOK
+    }
+}

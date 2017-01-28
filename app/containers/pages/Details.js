@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 
 import DetailsPage from '../../components/pages/Details';
 import {getBookByID} from '../../actions/api';
+import {resetSelectedBook} from '../../actions/state';
 
 
 function mapStateToProps(state) {
@@ -15,10 +16,10 @@ function mapStateToProps(state) {
 function mapDispatchToProps(dispatch) {
     return {
         getBookByID: (id) => {
-            dispatch(getBookByID(id))
+            dispatch(getBookByID(id));
         },
-        setPaginationActivePage: (index) => {
-            dispatch(setPaginationActivePage(index))
+        resetSelectedBook: () => {
+            dispatch(resetSelectedBook());
         }
     }
 }

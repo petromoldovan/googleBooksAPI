@@ -27,6 +27,10 @@ function setSelectedBook(state, action) {
     return state.setIn(['data', 'selectedBook'], fromJS(action.payload))
 }
 
+function resetSelectedBook(state) {
+    return state.setIn(['data', 'selectedBook'], fromJS({}))
+}
+
 function coreReducer(state = fromJS({}), action) {
     let newState;
 
@@ -48,6 +52,9 @@ function coreReducer(state = fromJS({}), action) {
           break;
         case constants.SET_SELECTED_BOOK:
           newState = setSelectedBook(state, action);
+          break;
+        case constants.RESET_SELECTED_BOOK:
+          newState = resetSelectedBook(state, action);
           break;
         default:
           newState = state;

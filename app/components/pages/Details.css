@@ -1,0 +1,16 @@
+.content {
+    display: flex;
+    flex-direction: row;
+}
+.rightSide, .leftSide {
+    flex: 1;
+}
+.closeButton {
+    width: 30px;
+    cursor: pointer;
+    position: absolute;
+    right: -50px;
+}
+.header {
+    padding-top: 40px;
+}

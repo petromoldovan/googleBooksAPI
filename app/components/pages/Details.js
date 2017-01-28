@@ -1,6 +1,8 @@
 import React from 'react';
+import { browserHistory } from 'react-router';
 
-import Spinner from '../../common/Spinner';
+import {Spinner, Book} from '../../common/';
+import styles from './Details.css';
 
 
 class Details extends React.Component {
@@ -19,14 +21,37 @@ class Details extends React.Component {
         return <Spinner />;
     }
 
+    goBack = () => {
+        const {resetSelectedBook} = this.props;
+
+        browserHistory.goBack();
+
+        if(resetSelectedBook && resetSelectedBook instanceof Function) resetSelectedBook();
+    }
+
     render() {
         const {selectedBook} = this.props;
 
-        if (!selectedBook) return <Spinner />;
+        if (!selectedBook || !selectedBook['volumeInfo']) return <Spinner />;
+
+        const bookInfo = selectedBook['volumeInfo'];
+        const img = bookInfo['imageLinks'] ? bookInfo['imageLinks']['small'] ? bookInfo['imageLinks']['small'] : bookInfo['imageLinks']['medium'] ? bookInfo['imageLinks']['medium'] : '' : '';
 
         return (
               <div>
-                  <span>{selectedBook['volumeInfo']['title'] ? selectedBook['volumeInfo']['title'] : 'no title'}</span>
+                  <div className={styles.closeButton} onClick={this.goBack}>
+                      <img src="/app/assets/close-icon.svg" alt="close button" />
+                  </div>
+
+                  <h1 className={styles.header}>{bookInfo['title'] ? bookInfo['title'] : 'no title'}</h1>
+                  <div className={styles.content}>
+                      <div className={styles.rightSide}>
+                          <img src={img} alt="book preview" />
+                      </div>
+                      <div className={styles.leftSide}>
+                          <Book {...bookInfo} />
+                      </div>
+                  </div>
               </div>
         )
     }

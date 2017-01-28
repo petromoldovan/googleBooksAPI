@@ -4,7 +4,7 @@ import {Link} from 'react-router';
 import config from '../../../config/base';
 import {getBooks} from '../../actions/api';
 import styles from './Landing.css';
-import Spinner from '../../common/Spinner';
+import {Spinner} from '../../common/';
 
 
 class Landing extends React.Component {
