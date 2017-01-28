@@ -13,7 +13,8 @@ class Landing extends React.Component {
 
         this.state = {
             search: '',
-            booksPerPage: 20
+            booksPerPage: 20,
+            paginationIDX: 0
         };
 
         this.onChange = this.onChange.bind(this);
@@ -80,6 +81,29 @@ class Landing extends React.Component {
         })
     }
 
+    onClickPagination = (idx) => {
+        if (this.onSubmit) this.onSubmit(idx)
+
+        this.setState({paginationIDX: idx})
+    };
+
+    slicePaginationBoxes = (arr) => {
+        const {paginationIDX} = this.state;
+
+        console.log(arr)
+
+        const maxPages = 10;
+        let lastPage = arr.length;
+
+        let slicedArray = arr;
+
+        if (lastPage > maxPages) {
+            slicedArray = arr.slice(paginationIDX, paginationIDX + maxPages);
+        }
+
+        return slicedArray
+    };
+
     renderPagination() {
         const {books, paginationTotalPages, paginationActivePage} = this.props;
 
@@ -88,15 +112,13 @@ class Landing extends React.Component {
         let paginationBoxes = [];
         for (let i = 0; i < paginationTotalPages; i++) {
             let className = '';
-            console.log(paginationActivePage && paginationActivePage === i)
-
             if (paginationActivePage && paginationActivePage == i) className = 'active';
-            paginationBoxes.push(<span className={styles[className]} key={i} onClick={()=>this.onSubmit(i)}>{i + 1}</span>)
+            paginationBoxes.push(<span className={styles[className]} key={i} onClick={()=>this.onClickPagination(i)}>{i + 1}</span>)
         }
 
         return (
             <div className={styles.Pagination}>
-                {paginationBoxes}
+                {this.slicePaginationBoxes(paginationBoxes)}
             </div>
         )
     }
