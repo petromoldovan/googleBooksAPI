@@ -25,23 +25,24 @@ class Landing extends React.Component {
         this.setState({[e.target.name]: e.target.value});
     };
 
-    onSubmit(startIndex) {
+    onSubmit(startIndex = null) {
         const {getBooks, setPaginationActivePage} = this.props;
         let {search, booksPerPage} = this.state;
 
         if(!search) return null;
 
+        //format the search term
         search = search.toLowerCase().split(' ').join('+');
 
         //show next n books
-        if (startIndex) {
+        if (startIndex && !isNaN(startIndex)) {
             if (setPaginationActivePage && setPaginationActivePage instanceof Function) setPaginationActivePage(startIndex);
             startIndex = booksPerPage * startIndex + 1;
         }
 
         const data = {
             searchValue: search,
-            startIndex: startIndex ? startIndex : 0,
+            startIndex: !isNaN(startIndex) ? startIndex : 0,
             booksPerPage: booksPerPage
         };
 
@@ -85,10 +86,12 @@ class Landing extends React.Component {
         if (!books || !paginationTotalPages) return null;
 
         let paginationBoxes = [];
-        for (let i = 1; (i -1) < paginationTotalPages; i++) {
+        for (let i = 0; i < paginationTotalPages; i++) {
             let className = '';
-            if (paginationActivePage && paginationActivePage === i) className = 'active';
-            paginationBoxes.push(<span className={styles[className]} key={i} onClick={()=>this.onSubmit(i)}>{i}</span>)
+            console.log(paginationActivePage && paginationActivePage === i)
+
+            if (paginationActivePage && paginationActivePage == i) className = 'active';
+            paginationBoxes.push(<span className={styles[className]} key={i} onClick={()=>this.onSubmit(i)}>{i + 1}</span>)
         }
 
         return (

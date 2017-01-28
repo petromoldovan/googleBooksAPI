@@ -1,6 +1,9 @@
 .BookRow div, .tableHeader {
     display: flex;
 }
+.table a {
+    text-decoration: none;
+}
 .BookRow div div,
 .tableHeader div {
     float: left;

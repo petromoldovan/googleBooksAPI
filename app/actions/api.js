@@ -1,5 +1,4 @@
 import Api from '../lib/api';
-import config from '../../config/base';
 import {
     setLoading,
     setBooks,
@@ -15,17 +14,25 @@ export function getBooks(data) {
         const api = new Api();
         api.getBooks(data)
             .then((resp) => {
-                if(resp.items) dispatch(setBooks(resp.items));
+                if (resp.items) dispatch(setBooks(resp.items));
 
-                const numberOfPages = Math.ceil(resp['totalItems'] / data.booksPerPage);
+                const numberOfPages = Math.ceil(resp.totalItems / data.booksPerPage);
                 dispatch(setPaginationPages(numberOfPages));
 
-                //handle errors
+                /*handle errors*/
                 if (numberOfPages === 0) {
-                    dispatch(setCustomError({message: "None of our books matched your request", status: "404"}));
+                    dispatch(setCustomError({message: 'None of our books matched your request', status: '404'}));
                 } else {
                     dispatch(setCustomError(''));
                 }
+
+                console.log("full response")
+                console.log(resp)
+                console.log("data")
+                console.log(data)
+
+                console.log("numberOfPages")
+                console.log(numberOfPages)
 
                 dispatch(setLoading(false));
             })

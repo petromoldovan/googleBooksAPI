@@ -10,7 +10,7 @@ function mapStateToProps(state) {
     let books = state.getIn(['data', 'books'], null);
     books = books ? books.toJS() : null;
     const paginationTotalPages = state.getIn(['ui', 'pagination', 'total'], null);
-    const paginationActivePage = state.getIn(['ui', 'pagination', 'activePage'], 1);
+    const paginationActivePage = state.getIn(['ui', 'pagination', 'activePage'], "0");
     const customError = state.getIn(['ui', 'customError'], null);
 
     return {books, paginationTotalPages, paginationActivePage}
