@@ -14,30 +14,28 @@ class Landing extends React.Component {
         super(props);
 
         this.state = {
-            search: '',
             booksPerPage: 20,
             paginationIDX: 0,
             filter: 'title',
             filterAlpha: true
         };
 
-        this.onChange = this.onChange.bind(this);
-        this.onSubmit = this.onSubmit.bind(this);
         this.onChangeDropdown = this.onChangeDropdown.bind(this);
     }
 
-    onChange(e) {
-        this.setState({[e.target.name]: e.target.value});
+    onChange = (e) => {
+        const {setSearchTerm} = this.props;
+        if(setSearchTerm && setSearchTerm instanceof Function) setSearchTerm(e.target.value);
     };
 
-    onSubmit(startIndex = null) {
-        const {getBooks, setPaginationActivePage} = this.props;
-        let {search, booksPerPage} = this.state;
+    onSubmit = (startIndex = null) => {
+        const {getBooks, setPaginationActivePage, searchTerm} = this.props;
+        let {booksPerPage} = this.state;
 
-        if(!search) return null;
+        if(!searchTerm) return null;
 
         //format the search term
-        search = search.toLowerCase().split(' ').join('+');
+        let searchValue = searchTerm.toLowerCase().split(' ').join('+');
 
         //show next n books
         if (startIndex && !isNaN(startIndex)) {
@@ -47,13 +45,13 @@ class Landing extends React.Component {
         }
 
         const data = {
-            searchValue: search,
+            searchValue: searchValue,
             startIndex: !isNaN(startIndex) ? startIndex : 0,
             booksPerPage: booksPerPage
         };
 
         if (getBooks && getBooks instanceof Function) getBooks(data)
-    }
+    };
 
     headerClick = (filter) => {
       if (this.state.filter == filter) {
@@ -160,9 +158,7 @@ class Landing extends React.Component {
 
     onChangeDropdown(e) {
         this.setState({booksPerPage: e.target.value});
-        if(this.state.search) this.onSubmit();
     }
-
 
     renderDropdown() {
         const options = [10, 20, 30, 40];
@@ -182,14 +178,14 @@ class Landing extends React.Component {
     }
 
     render() {
-        const {search} = this.state;
+        const {searchTerm} = this.props;
 
         return (
             <div>
                 {this.renderSpinner()}
                 <div className={styles.Form}>
                     <div>
-                        <input type="text" placeholder="Book title/author etc" name="search" value={search} onChange={this.onChange} />
+                        <input type="text" placeholder="Book title/author etc" name="searchTerm" value={searchTerm} onChange={this.onChange} />
                         {this.renderDropdown()}
                     </div>
                     <div>
@@ -212,7 +208,9 @@ Landing.propTypes = {
     paginationTotalPages: React.PropTypes.number,
     paginationActivePage: React.PropTypes.number,
     getBooks: React.PropTypes.func.isRequired,
-    setPaginationActivePage: React.PropTypes.func
+    setPaginationActivePage: React.PropTypes.func,
+    searchTerm: React.PropTypes.string,
+    setSearchTerm: React.PropTypes.func
 };
 
 

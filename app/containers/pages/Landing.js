@@ -2,7 +2,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 
 import {getBooks} from '../../actions/api';
-import {setPaginationActivePage} from '../../actions/state';
+import {setPaginationActivePage, setSearchTerm} from '../../actions/state';
 import LandingPage from '../../components/pages/Landing';
 
 
@@ -12,8 +12,9 @@ function mapStateToProps(state) {
     const paginationTotalPages = state.getIn(['ui', 'pagination', 'total'], null);
     const paginationActivePage = state.getIn(['ui', 'pagination', 'activePage'], 1);
     const customError = state.getIn(['ui', 'customError'], null);
+    const searchTerm = state.getIn(['ui', 'searchTerm'], '');
 
-    return {books, paginationTotalPages, paginationActivePage}
+    return {books, paginationTotalPages, paginationActivePage, searchTerm}
 }
 
 function mapDispatchToProps(dispatch) {
@@ -23,6 +24,9 @@ function mapDispatchToProps(dispatch) {
         },
         setPaginationActivePage: (index) => {
             dispatch(setPaginationActivePage(index))
+        },
+        setSearchTerm: (data) => {
+            dispatch(setSearchTerm(data))
         }
     }
 }

@@ -1,6 +1,8 @@
-.Book {
-
-}
 .authorRow {
     display: block;
+}
+.detailsHeaders {
+    margin-bottom: 5px;
+    color: #1d9aca;
+    font-weight: 500;
 }

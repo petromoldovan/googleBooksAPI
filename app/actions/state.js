@@ -48,3 +48,10 @@ export function resetSelectedBook() {
         type: constants.RESET_SELECTED_BOOK
     }
 }
+
+export function setSearchTerm(data) {
+    return {
+        type: constants.SET_SEARCH_TERM,
+        payload: data
+    }
+}

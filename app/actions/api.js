@@ -6,6 +6,7 @@ import {
     setPaginationPages,
     setSelectedBook
 } from './state';
+import {errors} from '../constants';
 
 export function getBooks(data) {
     return (dispatch) => {
@@ -21,18 +22,10 @@ export function getBooks(data) {
 
                 /*handle errors*/
                 if (numberOfPages === 0) {
-                    dispatch(setCustomError({message: 'None of our books matched your request', status: '404'}));
+                    dispatch(setCustomError({message: errors.NO_BOOKS_FOUND, status: '404'}));
                 } else {
                     dispatch(setCustomError(''));
                 }
-
-                console.log("full response")
-                console.log(resp)
-                console.log("data")
-                console.log(data)
-
-                console.log("numberOfPages")
-                console.log(numberOfPages)
 
                 dispatch(setLoading(false));
             })
@@ -50,12 +43,10 @@ export function getBookByID(id){
         const api = new Api();
         api.getBookByID(id)
             .then((res)=>{
-                console.log(res)
                 dispatch(setSelectedBook(res));
                 dispatch(setLoading(false));
             })
             .catch((err)=>{
-                console.log(err)
                 dispatch(setLoading(false));
             })
     }

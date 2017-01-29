@@ -5,7 +5,12 @@ const constants = {
     SET_PAGINATION_TOTAL: "SET_PAGINATION_TOTAL",
     SET_PAGINATION_ACTIVE_PAGE: "SET_PAGINATION_ACTIVE_PAGE",
     SET_SELECTED_BOOK: "SET_SELECTED_BOOK",
-    RESET_SELECTED_BOOK: "RESET_SELECTED_BOOK"
+    RESET_SELECTED_BOOK: "RESET_SELECTED_BOOK",
+    SET_SEARCH_TERM: "SET_SEARCH_TERM"
+};
+
+export const errors = {
+    NO_BOOKS_FOUND: "None of our books matched your request"
 };
 
 export default constants;

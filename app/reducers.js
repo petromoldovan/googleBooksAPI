@@ -31,6 +31,10 @@ function resetSelectedBook(state) {
     return state.setIn(['data', 'selectedBook'], fromJS({}))
 }
 
+function setSearchTerm(state, action) {
+    return state.setIn(['ui', 'searchTerm'], action.payload)
+}
+
 function coreReducer(state = fromJS({}), action) {
     let newState;
 
@@ -55,6 +59,9 @@ function coreReducer(state = fromJS({}), action) {
           break;
         case constants.RESET_SELECTED_BOOK:
           newState = resetSelectedBook(state, action);
+          break;
+        case constants.SET_SEARCH_TERM:
+          newState = setSearchTerm(state, action);
           break;
         default:
           newState = state;

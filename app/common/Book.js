@@ -14,7 +14,16 @@ class Book extends React.Component {
     }
 
     render() {
-        const {title, subtitle, authors, publishedDate, description, maturityRating, detailsPage } = this.props;
+        const {
+            title,
+            subtitle,
+            authors,
+            publishedDate,
+            description,
+            maturityRating,
+            detailsPage,
+            publisher,
+            language } = this.props;
 
         let bookMap = {
             title: title,
@@ -27,6 +36,8 @@ class Book extends React.Component {
             bookMap['title'] = "";
             bookMap['description'] = description;
             bookMap['maturityRating'] = maturityRating;
+            bookMap['publisher'] = publisher;
+            bookMap['language'] = language;
         }
 
         let data = Object.keys(bookMap).map((key, id)=>{
@@ -34,7 +45,7 @@ class Book extends React.Component {
 
             return (
                 <div key={id}>
-                    { detailsPage ? <h3>{formatTitle(key)}</h3> : null }
+                    { detailsPage ? <h3 className={styles.detailsHeaders}>{formatTitle(key)}</h3> : null }
                     <span>{key === "authors" ? this.rederAuthors(bookMap[key]) : bookMap[key]}</span>
                 </div>)
         });
