@@ -27,3 +27,30 @@ export function slicePaginationBoxes(arr, paginationIDX) {
 
     return slicedArray
 };
+
+export function dataSort(property, alphabetical) {
+    return function (a,b) {
+        let result;
+        const sortOrder = alphabetical ? 1 : -1;
+
+        //cases when properties are not defined
+        if (!a[property]) return result = 1;
+        if (!b[property]) return result = -1;
+
+        if (property === 'authors') {
+            if (!a[property][0]) {
+                return result = -1;
+            }
+            else if (!b[property][0]) {
+                return result = 1;
+            }
+            else {
+                result = (a[property][0]).localeCompare(b[property][0]);
+            }
+        } else {
+            result = (a[property]).localeCompare(b[property]);
+        }
+
+        return result * sortOrder;
+    }
+};

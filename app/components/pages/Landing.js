@@ -5,7 +5,7 @@ import config from '../../../config/base';
 import {getBooks} from '../../actions/api';
 import styles from './Landing.css';
 import {Spinner, Book} from '../../common/';
-import {slicePaginationBoxes} from '../../helper';
+import {slicePaginationBoxes, dataSort} from '../../helper';
 
 
 class Landing extends React.Component {
@@ -15,7 +15,9 @@ class Landing extends React.Component {
         this.state = {
             search: '',
             booksPerPage: 20,
-            paginationIDX: 0
+            paginationIDX: 0,
+            filter: 'title',
+            filterAlpha: true
         };
 
         this.onChange = this.onChange.bind(this);
@@ -52,36 +54,51 @@ class Landing extends React.Component {
         if (getBooks && getBooks instanceof Function) getBooks(data)
     }
 
-    renderTableHeader() {
+    headerClick = (filter) => {
+      if (this.state.filter == filter) {
+          this.setState({filterAlpha: !this.state.filterAlpha})
+      }
+
+      this.setState({filter: filter})
+    };
+
+    renderTable() {
         const {books} = this.props;
+        const {filter, filterAlpha} = this.state;
 
         if (!books) return null;
 
+        let filteredBooks = [];
+        for (let i in books) {
+            filteredBooks.push(books[i]['volumeInfo'])
+        }
+
+        filteredBooks.sort(dataSort(filter, filterAlpha));
+
         return (
-            <div className={styles.tableHeader}>
-                <div>Title</div>
-                <div>Subtitle</div>
-                <div>Authors</div>
-                <div>Published Date</div>
+            <div className={styles.table}>
+                <div className={styles.tableHeader}>
+                    <div onClick={()=>this.headerClick('title')}>Title</div>
+                    <div onClick={()=>this.headerClick('subtitle')}>Subtitle</div>
+                    <div onClick={()=>this.headerClick('authors')}>Authors</div>
+                    <div onClick={()=>this.headerClick('publishedDate')}>Published Date</div>
+                </div>
+                {this.renderBooks(filteredBooks)}
             </div>
         )
     }
 
-    renderBooks() {
-        const {books} = this.props;
-
-        if (!books) return null;
-
+    renderBooks = (books) => {
         return books.map((book, id) => {
             return (
                 <Link to={book['id']} key={id}>
                     <div className={styles.BookRow}>
-                        <Book {...book['volumeInfo']} />
+                        <Book {...book} />
                     </div>
                 </Link>
             )
         })
-    }
+    };
 
     onClickPagination = (idx) => {
         if (this.onSubmit) this.onSubmit(idx)
@@ -162,12 +179,7 @@ class Landing extends React.Component {
                     {this.renderDropdown()}
                 </div>
                 {this.renderError()}
-
-                <div className={styles.table}>
-                    {this.renderTableHeader()}
-                    {this.renderBooks()}
-                </div>
-
+                {this.renderTable()}
                 {this.renderPagination()}
             </div>
         );
