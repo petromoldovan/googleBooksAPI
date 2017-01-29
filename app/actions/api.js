@@ -8,6 +8,7 @@ import {
 } from './state';
 import {errors} from '../constants';
 
+
 export function getBooks(data) {
     return (dispatch) => {
         dispatch(setLoading(true));
@@ -32,12 +33,12 @@ export function getBooks(data) {
             .catch((err) => {
                 dispatch(setCustomError(err));
                 dispatch(setLoading(false));
-            })
-    }
+            });
+    };
 }
 
-export function getBookByID(id){
-    return(dispatch) => {
+export function getBookByID(id) {
+    return (dispatch) => {
         dispatch(setLoading(true));
 
         const api = new Api();
@@ -46,8 +47,8 @@ export function getBookByID(id){
                 dispatch(setSelectedBook(res));
                 dispatch(setLoading(false));
             })
-            .catch((err)=>{
+            .catch(()=>{
                 dispatch(setLoading(false));
-            })
-    }
+            });
+    };
 }

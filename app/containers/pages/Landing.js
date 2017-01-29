@@ -1,4 +1,3 @@
-import React from 'react';
 import { connect } from 'react-redux';
 
 import {getBooks} from '../../actions/api';
@@ -14,21 +13,21 @@ function mapStateToProps(state) {
     const customError = state.getIn(['ui', 'customError'], null);
     const searchTerm = state.getIn(['ui', 'searchTerm'], '');
 
-    return {books, paginationTotalPages, paginationActivePage, searchTerm}
+    return {books, paginationTotalPages, paginationActivePage, searchTerm, customError};
 }
 
 function mapDispatchToProps(dispatch) {
     return {
         getBooks: (book) => {
-            dispatch(getBooks(book))
+            dispatch(getBooks(book));
         },
         setPaginationActivePage: (index) => {
-            dispatch(setPaginationActivePage(index))
+            dispatch(setPaginationActivePage(index));
         },
         setSearchTerm: (data) => {
-            dispatch(setSearchTerm(data))
+            dispatch(setSearchTerm(data));
         }
-    }
+    };
 }
 
 const LandingCont = connect(

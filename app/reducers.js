@@ -4,41 +4,41 @@ import constants from './constants';
 
 
 function loadBooks(state, action) {
-    return state.setIn(['data', 'books'], fromJS(action.payload))
+    return state.setIn(['data', 'books'], fromJS(action.payload));
 }
 
 function setLoadingState(state, action) {
-    return state.setIn(['ui', 'isLoading'], action.payload)
+    return state.setIn(['ui', 'isLoading'], action.payload);
 }
 
 function setCustomError(state, action) {
-    return state.setIn(['ui', 'customError'], action.payload)
+    return state.setIn(['ui', 'customError'], action.payload);
 }
 
 function setPaginationTotal(state, action) {
-    return state.setIn(['ui', 'pagination', 'total'], action.payload)
+    return state.setIn(['ui', 'pagination', 'total'], action.payload);
 }
 
 function setPaginationActivePage(state, action) {
-    return state.setIn(['ui', 'pagination', 'activePage'], action.payload)
+    return state.setIn(['ui', 'pagination', 'activePage'], action.payload);
 }
 
 function setSelectedBook(state, action) {
-    return state.setIn(['data', 'selectedBook'], fromJS(action.payload))
+    return state.setIn(['data', 'selectedBook'], fromJS(action.payload));
 }
 
 function resetSelectedBook(state) {
-    return state.setIn(['data', 'selectedBook'], fromJS({}))
+    return state.setIn(['data', 'selectedBook'], fromJS({}));
 }
 
 function setSearchTerm(state, action) {
-    return state.setIn(['ui', 'searchTerm'], action.payload)
+    return state.setIn(['ui', 'searchTerm'], action.payload);
 }
 
 function coreReducer(state = fromJS({}), action) {
     let newState;
 
-    switch(action.type) {
+    switch (action.type) {
         case constants.LOAD_BOOKS:
           newState = loadBooks(state, action);
           break;

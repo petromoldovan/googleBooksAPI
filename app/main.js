@@ -13,7 +13,7 @@ import Details from './containers/pages/Details';
 
 
 const loggerMiddleware = createLogger({
-    stateTransformer: state => state.toJS()
+  stateTransformer: state => state.toJS()
 });
 
 const store = createStore(

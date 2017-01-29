@@ -17,19 +17,19 @@ export function slicePaginationBoxes(arr, paginationIDX) {
         //if the first elem not 1, add ref to 1 and dots
         if (slicedArray[0] && slicedArray[0] !== 1) {
             //check not to add dots between 1 and 2
-            if (slicedArray[0] !== 2) slicedArray.unshift("...");
+            if (slicedArray[0] !== 2) slicedArray.unshift('...');
             slicedArray.unshift(1);
         }
 
         //if the last elem is not visible, add dots
-        if (slicedArray[slicedArray.length-1] !== lastPage) slicedArray.push("...");
+        if (slicedArray[slicedArray.length-1] !== lastPage) slicedArray.push('...');
     }
 
-    return slicedArray
-};
+    return slicedArray;
+}
 
 export function dataSort(property, alphabetical) {
-    return function (a,b) {
+    return function (a, b) {
         let result;
         const sortOrder = alphabetical ? 1 : -1;
 
@@ -52,8 +52,8 @@ export function dataSort(property, alphabetical) {
         }
 
         return result * sortOrder;
-    }
-};
+    };
+}
 
 export function formatTitle(string) {
     //split words
@@ -61,4 +61,4 @@ export function formatTitle(string) {
 
     //return with the first capital letter
     return string.charAt(0).toUpperCase() + string.slice(1);
-};
+}

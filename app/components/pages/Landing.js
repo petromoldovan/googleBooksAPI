@@ -2,8 +2,6 @@ import React from 'react';
 import {Link} from 'react-router';
 import classNames from 'classnames';
 
-import config from '../../../config/base';
-import {getBooks} from '../../actions/api';
 import styles from './Landing.css';
 import {Spinner, Book} from '../../common/';
 import {slicePaginationBoxes, dataSort, formatTitle} from '../../helper';
@@ -25,23 +23,23 @@ class Landing extends React.Component {
 
     onChange = (e) => {
         const {setSearchTerm} = this.props;
-        if(setSearchTerm && setSearchTerm instanceof Function) setSearchTerm(e.target.value);
+        if (setSearchTerm && setSearchTerm instanceof Function) setSearchTerm(e.target.value);
     };
 
     onSubmit = (startIndex = null) => {
         const {getBooks, setPaginationActivePage, searchTerm} = this.props;
-        let {booksPerPage} = this.state;
+        const {booksPerPage} = this.state;
 
-        if(!searchTerm) return null;
+        if (!searchTerm) return null;
 
         //format the search term
-        let searchValue = searchTerm.toLowerCase().split(' ').join('+');
+        const searchValue = searchTerm.toLowerCase().split(' ').join('+');
 
         //show next n books
         if (startIndex && !isNaN(startIndex)) {
             if (setPaginationActivePage && setPaginationActivePage instanceof Function) setPaginationActivePage(startIndex);
             //if it is not the first page then start index is numberOfBooksPerPage times startIndex-1 and plus one book
-            startIndex = startIndex === 1 ? 0 : booksPerPage * (startIndex-1) + 1;
+            startIndex = startIndex === 1 ? 0 : booksPerPage * (startIndex - 1) + 1;
         }
 
         const data = {
@@ -50,15 +48,15 @@ class Landing extends React.Component {
             booksPerPage: booksPerPage
         };
 
-        if (getBooks && getBooks instanceof Function) getBooks(data)
+        if (getBooks && getBooks instanceof Function) getBooks(data);
     };
 
     headerClick = (filter) => {
       if (this.state.filter == filter) {
-          this.setState({filterAlpha: !this.state.filterAlpha})
+          this.setState({filterAlpha: !this.state.filterAlpha});
       }
 
-      this.setState({filter: filter})
+      this.setState({filter: filter});
     };
 
     renderTable() {
@@ -72,14 +70,14 @@ class Landing extends React.Component {
             let dataArr = books[i]['volumeInfo'];
             dataArr.id = books[i].id;
 
-            filteredBooks.push(dataArr)
+            filteredBooks.push(dataArr);
         }
 
         filteredBooks.sort(dataSort(filter, filterAlpha));
 
-        const columnNames = ["title", "subtitle", "authors", "publishedDate"];
+        const columnNames = ['title', 'subtitle', 'authors', 'publishedDate'];
         const columns = columnNames.map((value, id)=>{
-            return <div key={id} onClick={()=>this.headerClick(value)}><span>{formatTitle(value)}</span></div>
+            return (<div key={id} onClick={()=>this.headerClick(value)}><span>{formatTitle(value)}</span></div>);
         });
 
         return (
@@ -89,7 +87,7 @@ class Landing extends React.Component {
                 </div>
                 {this.renderBooks(filteredBooks)}
             </div>
-        )
+        );
     }
 
     renderBooks = (books) => {
@@ -100,14 +98,14 @@ class Landing extends React.Component {
                         <Book {...book} />
                     </div>
                 </Link>
-            )
-        })
+            );
+        });
     };
 
     onClickPagination = (idx) => {
-        if (this.onSubmit) this.onSubmit(idx)
+        if (this.onSubmit) this.onSubmit(idx);
 
-        this.setState({paginationIDX: idx})
+        this.setState({paginationIDX: idx});
     };
 
     renderPagination() {
@@ -117,7 +115,7 @@ class Landing extends React.Component {
 
         let paginationBoxes = [];
         for (let i = 1; i <= paginationTotalPages; i++) {
-            paginationBoxes.push(i)
+            paginationBoxes.push(i);
         }
 
         paginationBoxes = slicePaginationBoxes(paginationBoxes, this.state.paginationIDX);
@@ -126,34 +124,34 @@ class Landing extends React.Component {
             let className = '';
             if (paginationActivePage && paginationActivePage == value) className = 'active';
             if (isNaN(value)) className = 'dots';
-            return <span className={styles[className]}
+            return (<span className={styles[className]}
                          key={`${id}_box_${value}`}
                          onClick={!isNaN(value) ? ()=>this.onClickPagination(value) : ()=>null }>
                         {value}
-                    </span>
+                    </span>);
         });
 
         return (
             <div className={styles.Pagination}>
                 {paginationBoxes}
             </div>
-        )
+        );
     }
 
     renderSpinner() {
         const {isLoading} = this.props;
 
-        if(!isLoading) return null;
+        if (!isLoading) return null;
 
-        return <Spinner />
+        return (<Spinner />);
     }
 
     renderError() {
         const {customError} = this.props;
 
-        if(!customError) return null;
+        if (!customError) return null;
 
-        return <div className={styles.Error}>Error {customError.status}: {customError.message}</div>
+        return (<div className={styles.Error}>Error {customError.status}: {customError.message}</div>);
     }
 
     onChangeDropdown(e) {
@@ -164,7 +162,7 @@ class Landing extends React.Component {
         const options = [10, 20, 30, 40];
 
         const data = options.map((value, id)=>{
-                        return <option key={id} value={value}>{value}</option>
+                        return (<option key={id} value={value}>{value}</option>);
                      });
 
         return (
@@ -174,7 +172,7 @@ class Landing extends React.Component {
                     {data}
                 </select>
             </div>
-        )
+        );
     }
 
     render() {

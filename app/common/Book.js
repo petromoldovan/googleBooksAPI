@@ -9,8 +9,8 @@ class Book extends React.Component {
         if (!authors || !authors instanceof Array) return null;
 
         return authors.map((author, id)=>{
-            return <span className={styles.authorRow} key={id}>{author}</span>
-        })
+            return (<span className={styles.authorRow} key={id}>{author}</span>);
+        });
     }
 
     render() {
@@ -32,25 +32,25 @@ class Book extends React.Component {
             publishedDate: publishedDate
         };
 
-        if(detailsPage) {
-            bookMap['title'] = "";
+        if (detailsPage) {
+            bookMap['title'] = '';
             bookMap['description'] = description;
             bookMap['maturityRating'] = maturityRating;
             bookMap['publisher'] = publisher;
             bookMap['language'] = language;
         }
 
-        let data = Object.keys(bookMap).map((key, id)=>{
-            if(!bookMap[key]) return (detailsPage ? null : <div key={id}>no data</div>);
+        const data = Object.keys(bookMap).map((key, id)=>{
+            if (!bookMap[key]) return (detailsPage ? null : <div key={id}>no data</div>);
 
             return (
                 <div key={id}>
                     { detailsPage ? <h3 className={styles.detailsHeaders}>{formatTitle(key)}</h3> : null }
-                    <span>{key === "authors" ? this.rederAuthors(bookMap[key]) : bookMap[key]}</span>
-                </div>)
+                    <span>{key === 'authors' ? this.rederAuthors(bookMap[key]) : bookMap[key]}</span>
+                </div>);
         });
 
-        return <div>{data}</div>
+        return (<div>{data}</div>);
     }
 }
 
@@ -61,7 +61,9 @@ Book.propTypes = {
     description: React.PropTypes.string,
     maturityRating: React.PropTypes.string,
     authors: React.PropTypes.array,
-    detailsPage: React.PropTypes.bool
+    detailsPage: React.PropTypes.bool,
+    language: React.PropTypes.string,
+    publisher: React.PropTypes.string
 };
 
 Book.defaultProps = {

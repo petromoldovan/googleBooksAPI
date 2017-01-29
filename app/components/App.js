@@ -4,7 +4,7 @@ import styles from './App.css';
 
 
 class App extends React.Component {
-    render(){
+    render() {
         const {isLoading, customError} = this.props;
 
         return (
@@ -13,7 +13,7 @@ class App extends React.Component {
                     {React.cloneElement(this.props.children, {isLoading, customError})}
                 </div>
             </div>
-        )
+        );
     }
 }
 

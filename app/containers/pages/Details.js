@@ -1,4 +1,3 @@
-import React from 'react';
 import { connect } from 'react-redux';
 
 import DetailsPage from '../../components/pages/Details';
@@ -10,7 +9,7 @@ function mapStateToProps(state) {
     let selectedBook = state.getIn(['data', 'selectedBook'], null);
     selectedBook = selectedBook ? selectedBook.toJS() : null;
 
-    return { selectedBook }
+    return { selectedBook };
 }
 
 function mapDispatchToProps(dispatch) {
@@ -21,7 +20,7 @@ function mapDispatchToProps(dispatch) {
         resetSelectedBook: () => {
             dispatch(resetSelectedBook());
         }
-    }
+    };
 }
 
 const DetailsCont = connect(

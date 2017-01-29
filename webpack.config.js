@@ -1,4 +1,4 @@
-var config = {
+let config = {
     entry: './app/main.js',
 
     output: {

@@ -5,11 +5,11 @@ import config from '../../config/base';
 
 class Api {
 	getBooks(data) {
-		return this.request('get', `${config.base_url}?printType=books&maxResults=${data.booksPerPage}&q=${data.searchValue}&startIndex=${data.startIndex}`)
+		return this.request('get', `${config.base_url}?printType=books&maxResults=${data.booksPerPage}&q=${data.searchValue}&startIndex=${data.startIndex}`);
 	}
 
     getBookByID(id) {
-        return this.request('get', `${config.base_url}/${id}`)
+        return this.request('get', `${config.base_url}/${id}`);
     }
 
     request(method, url) {
@@ -18,8 +18,8 @@ class Api {
 
             request
                 .then(response => resolve(response.body))
-                .catch(reject)
-        })
+                .catch(reject);
+        });
     }
 }
 

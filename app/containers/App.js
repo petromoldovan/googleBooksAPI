@@ -9,11 +9,11 @@ function mapStateToProps(state) {
 
     return {
         isLoading, customError
-    }
+    };
 }
 
 function mapDispatchToProps() {
-    return {}
+    return {};
 }
 
 const AppCont = connect(
