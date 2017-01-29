@@ -48,11 +48,30 @@
     -o-transition: all 500ms ease-out;
     transition: all 500ms ease-out;
 }
+.Pagination span {
+    border-top: 2px solid #1d9aca;
+    border-bottom: 2px solid #1d9aca;
+}
+.Pagination span:last-child:not(.dots) {
+    border-right: 2px solid #1d9aca;
+}
 .Pagination span.active,
 .Pagination span:hover,
 .Form button:hover {
     color: #fff;
     background-color: #1d9aca;
+}
+span.dots,
+span.dots:hover {
+    cursor: not-allowed;
+    border-top: none;
+    border-bottom: none;
+    font-weight: bold;
+    background: none;
+    color: #1d9aca;
+}
+span.dots:last-of-type {
+    border-right: none;
 }
 .Form {
     display: flex;

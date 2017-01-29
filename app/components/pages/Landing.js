@@ -5,6 +5,7 @@ import config from '../../../config/base';
 import {getBooks} from '../../actions/api';
 import styles from './Landing.css';
 import {Spinner, Book} from '../../common/';
+import {slicePaginationBoxes} from '../../helper';
 
 
 class Landing extends React.Component {
@@ -38,7 +39,8 @@ class Landing extends React.Component {
         //show next n books
         if (startIndex && !isNaN(startIndex)) {
             if (setPaginationActivePage && setPaginationActivePage instanceof Function) setPaginationActivePage(startIndex);
-            startIndex = booksPerPage * startIndex + 1;
+            //if it is not the first page then start index is numberOfBooksPerPage times startIndex-1 and plus one book
+            startIndex = startIndex === 1 ? 0 : booksPerPage * (startIndex-1) + 1;
         }
 
         const data = {
@@ -87,38 +89,32 @@ class Landing extends React.Component {
         this.setState({paginationIDX: idx})
     };
 
-    slicePaginationBoxes = (arr) => {
-        const {paginationIDX} = this.state;
-
-        console.log(arr)
-
-        const maxPages = 10;
-        let lastPage = arr.length;
-
-        let slicedArray = arr;
-
-        if (lastPage > maxPages) {
-            slicedArray = arr.slice(paginationIDX, paginationIDX + maxPages);
-        }
-
-        return slicedArray
-    };
-
     renderPagination() {
         const {books, paginationTotalPages, paginationActivePage} = this.props;
 
         if (!books || !paginationTotalPages) return null;
 
         let paginationBoxes = [];
-        for (let i = 0; i < paginationTotalPages; i++) {
-            let className = '';
-            if (paginationActivePage && paginationActivePage == i) className = 'active';
-            paginationBoxes.push(<span className={styles[className]} key={i} onClick={()=>this.onClickPagination(i)}>{i + 1}</span>)
+        for (let i = 1; i <= paginationTotalPages; i++) {
+            paginationBoxes.push(i)
         }
+
+        paginationBoxes = slicePaginationBoxes(paginationBoxes, this.state.paginationIDX);
+
+        paginationBoxes = paginationBoxes.map((value, id)=> {
+            let className = '';
+            if (paginationActivePage && paginationActivePage == value) className = 'active';
+            if (isNaN(value)) className = 'dots';
+            return <span className={styles[className]}
+                         key={`${id}_box_${value}`}
+                         onClick={!isNaN(value) ? ()=>this.onClickPagination(value) : ()=>null }>
+                        {value}
+                    </span>
+        });
 
         return (
             <div className={styles.Pagination}>
-                {this.slicePaginationBoxes(paginationBoxes)}
+                {paginationBoxes}
             </div>
         )
     }
