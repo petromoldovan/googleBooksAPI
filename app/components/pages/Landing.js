@@ -177,6 +177,7 @@ class Landing extends React.Component {
 
     render() {
         const {searchTerm} = this.props;
+        const disables = !searchTerm ? true: false;
 
         return (
             <div>
@@ -187,7 +188,7 @@ class Landing extends React.Component {
                         {this.renderDropdown()}
                     </div>
                     <div>
-                        <button onClick={this.onSubmit}>Get The Book!</button>
+                        <button onClick={this.onSubmit} disabled={disables}>Get The Book!</button>
                     </div>
                 </div>
                 {this.renderError()}
