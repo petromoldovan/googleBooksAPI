@@ -70,7 +70,10 @@ class Landing extends React.Component {
 
         let filteredBooks = [];
         for (let i in books) {
-            filteredBooks.push(books[i]['volumeInfo'])
+            let dataArr = books[i]['volumeInfo'];
+            dataArr.id = books[i].id;
+
+            filteredBooks.push(dataArr)
         }
 
         filteredBooks.sort(dataSort(filter, filterAlpha));
@@ -157,13 +160,21 @@ class Landing extends React.Component {
         if(this.state.search) this.onSubmit();
     }
 
+
     renderDropdown() {
+        const options = [10, 20, 30, 40];
+
+        const data = options.map((value, id)=>{
+                        return <option key={id} value={value}>{value}</option>
+                     });
+
         return (
-            <select value={this.state.booksPerPage} onChange={this.onChangeDropdown}>
-                <option value="10">10</option>
-                <option value="20">20</option>
-                <option value="40">40</option>
-            </select>
+            <div className={styles.Dropdown}>
+                <span>Books per page:</span>
+                <select value={this.state.booksPerPage} onChange={this.onChangeDropdown}>
+                    {data}
+                </select>
+            </div>
         )
     }
 
@@ -174,9 +185,13 @@ class Landing extends React.Component {
             <div>
                 {this.renderSpinner()}
                 <div className={styles.Form}>
-                    <input type="text" name="search" value={search} onChange={this.onChange} />
-                    <button onClick={this.onSubmit}>Get The Book!</button>
-                    {this.renderDropdown()}
+                    <div>
+                        <input type="text" placeholder="Book title/author etc" name="search" value={search} onChange={this.onChange} />
+                        {this.renderDropdown()}
+                    </div>
+                    <div>
+                        <button onClick={this.onSubmit}>Get The Book!</button>
+                    </div>
                 </div>
                 {this.renderError()}
                 {this.renderTable()}
@@ -185,5 +200,17 @@ class Landing extends React.Component {
         );
     }
 }
+
+Landing.propTypes = {
+    isLoading: React.PropTypes.bool,
+    customError: React.PropTypes.string,
+    onSubmit: React.PropTypes.func,
+    books: React.PropTypes.array,
+    paginationTotalPages: React.PropTypes.number,
+    paginationActivePage: React.PropTypes.number,
+    getBooks: React.PropTypes.func.isRequired,
+    setPaginationActivePage: React.PropTypes.func
+};
+
 
 export default Landing;

@@ -38,7 +38,6 @@ class Book extends React.Component {
         }
 
         let data = Object.keys(bookMap).map((key, id)=>{
-
             if(!bookMap[key]) return (detailsPage ? null : <div key={id}>no data</div>);
 
             return (
@@ -51,5 +50,20 @@ class Book extends React.Component {
         return <div>{data}</div>
     }
 }
+
+Book.propTypes = {
+    title: React.PropTypes.string,
+    subtitle: React.PropTypes.string,
+    publishedDate: React.PropTypes.string,
+    description: React.PropTypes.string,
+    maturityRating: React.PropTypes.string,
+    authors: React.PropTypes.array,
+    detailsPage: React.PropTypes.bool
+};
+
+Book.defaultProps = {
+    detailsPage: false
+};
+
 
 export {Book};

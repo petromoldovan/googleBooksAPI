@@ -17,4 +17,10 @@ class App extends React.Component {
     }
 }
 
+App.propTypes = {
+    isLoading: React.PropTypes.bool,
+    customError: React.PropTypes.string,
+};
+
+
 export default App;

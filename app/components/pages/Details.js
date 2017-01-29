@@ -27,7 +27,7 @@ class Details extends React.Component {
         browserHistory.goBack();
 
         if(resetSelectedBook && resetSelectedBook instanceof Function) resetSelectedBook();
-    }
+    };
 
     render() {
         const {selectedBook} = this.props;
@@ -49,12 +49,20 @@ class Details extends React.Component {
                           <img src={img} alt="book preview" />
                       </div>
                       <div className={styles.leftSide}>
-                          <Book {...bookInfo} detailsPage="true" />
+                          <Book {...bookInfo} detailsPage={true} />
                       </div>
                   </div>
               </div>
         )
     }
 }
+
+Details.propTypes = {
+    selectedBook: React.PropTypes.object,
+    resetSelectedBook: React.PropTypes.func,
+    getBookByID: React.PropTypes.func,
+    isLoading: React.PropTypes.bool
+};
+
 
 export default Details;

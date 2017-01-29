@@ -10,15 +10,16 @@
     padding: 10px;
     text-align: center;
     border: 1px solid #1d9aca;
-    width: 15%;
+    width: 20%;
     color: #000000;
     align-items: center;
     display: flex;
     justify-content: center;
+    cursor: pointer;
 }
 .BookRow div div:first-child,
 .tableHeader div:first-child {
-    width: 35%;
+    width: 40%;
     border-left: 2px solid #1d9aca;
 }
 .BookRow div div:last-child,
@@ -74,10 +75,13 @@ span.dots:last-of-type {
     border-right: none;
 }
 .Form {
+    margin-bottom: 20px;
+}
+.Form > div {
     display: flex;
     align-items: center;
     justify-content: center;
-    margin-bottom: 20px;
+    margin: 20px 0;
 }
 .Form input {
     border: 2px solid #1d9aca;
@@ -90,10 +94,23 @@ span.dots:last-of-type {
 }
 .Form button {
     display: block;
-    width: 150px;
+    font-weight: 600;
+    font-size: 22px;
+    width: 300px;
     border: 2px solid #1d9aca;
     outline: none;
 }
 .Error {
     color: #e45454;
+}
+.Dropdown select {
+    border: 2px solid #1d9aca;
+    border-radius: 10px;
+    padding: 10px 0 10px 10px;
+    width: 51px;
+    outline: none;
+    margin-left: 10px;
+}
+.Dropdown {
+    float: right
 }
