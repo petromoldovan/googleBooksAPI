@@ -114,3 +114,37 @@ span.dots:last-of-type {
 .Dropdown {
     float: right
 }
+.tableHeader div {
+    position: relative;
+}
+.tableHeader div::after {
+    content: "";
+    position: absolute;
+    background: #1d9aca url(/app/assets/arrow.svg) no-repeat;
+    background-size: 15px 15px;
+    height: 20px;
+    width: 20px;
+    right: 20px;
+    -ms-transform: rotate(90deg);
+    -webkit-transform: rotate(90deg);
+    transform: rotate(90deg);
+    -webkit-transition: all 100ms ease-out;
+    -moz-transition: all 100ms ease-out;
+    -o-transition: all 100ms ease-out;
+    transition: all 100ms ease-out;
+}
+.title div:first-child::after,
+.subtitle div:nth-child(2)::after,
+.authors div:nth-child(3)::after,
+.publishedDate div:nth-child(4)::after {
+    background: #1d9aca url(/app/assets/arrow-red.svg) no-repeat;
+    background-size: 15px 15px;
+}
+.title.false div:first-child::after,
+.subtitle.false div:nth-child(2)::after,
+.authors.false div:nth-child(3)::after,
+.publishedDate.false div:nth-child(4)::after {
+    -ms-transform: rotate(-90deg);
+    -webkit-transform: rotate(-90deg);
+    transform: rotate(-90deg);
+}

@@ -54,3 +54,11 @@ export function dataSort(property, alphabetical) {
         return result * sortOrder;
     }
 };
+
+export function formatTitle(string) {
+    //split words
+    string = string.split(/(?=[A-Z])/).join(" ");
+
+    //return with the first capital letter
+    return string.charAt(0).toUpperCase() + string.slice(1);
+};

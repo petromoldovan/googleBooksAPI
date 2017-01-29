@@ -1,11 +1,12 @@
 import React from 'react';
 import {Link} from 'react-router';
+import classNames from 'classnames';
 
 import config from '../../../config/base';
 import {getBooks} from '../../actions/api';
 import styles from './Landing.css';
 import {Spinner, Book} from '../../common/';
-import {slicePaginationBoxes, dataSort} from '../../helper';
+import {slicePaginationBoxes, dataSort, formatTitle} from '../../helper';
 
 
 class Landing extends React.Component {
@@ -78,13 +79,15 @@ class Landing extends React.Component {
 
         filteredBooks.sort(dataSort(filter, filterAlpha));
 
+        const columnNames = ["title", "subtitle", "authors", "publishedDate"];
+        const columns = columnNames.map((value, id)=>{
+            return <div key={id} onClick={()=>this.headerClick(value)}><span>{formatTitle(value)}</span></div>
+        });
+
         return (
             <div className={styles.table}>
-                <div className={styles.tableHeader}>
-                    <div onClick={()=>this.headerClick('title')}>Title</div>
-                    <div onClick={()=>this.headerClick('subtitle')}>Subtitle</div>
-                    <div onClick={()=>this.headerClick('authors')}>Authors</div>
-                    <div onClick={()=>this.headerClick('publishedDate')}>Published Date</div>
+                <div className={classNames(styles.tableHeader, styles[filter], styles[filterAlpha])}>
+                    {columns}
                 </div>
                 {this.renderBooks(filteredBooks)}
             </div>
