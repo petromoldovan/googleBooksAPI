@@ -13,14 +13,6 @@ class Details extends React.Component {
         if(id && getBookByID && getBookByID instanceof Function) getBookByID(id);
     }
 
-    renderSpinner() {
-        const {isLoading} = this.props;
-
-        if(!isLoading) return null;
-
-        return <Spinner />;
-    }
-
     goBack = () => {
         const {resetSelectedBook} = this.props;
 
@@ -29,13 +21,23 @@ class Details extends React.Component {
         if(resetSelectedBook && resetSelectedBook instanceof Function) resetSelectedBook();
     };
 
-    render() {
-        const {selectedBook} = this.props;
+    getImageLink = (bookInfo) => {
+        if (!bookInfo['imageLinks']) return '';
 
-        if (!selectedBook || !selectedBook['volumeInfo']) return <Spinner />;
+        if (bookInfo['imageLinks']['small']) return bookInfo['imageLinks']['small'];
+
+        if (bookInfo['imageLinks']['medium']) return bookInfo['imageLinks']['medium'];
+
+        if (bookInfo['imageLinks']['thumbnail']) return bookInfo['imageLinks']['thumbnail'];
+    };
+
+    render() {
+        const {selectedBook, isLoading} = this.props;
+
+        if (!selectedBook || !selectedBook['volumeInfo'] || isLoading) return <Spinner />;
 
         const bookInfo = selectedBook['volumeInfo'];
-        const img = bookInfo['imageLinks'] ? bookInfo['imageLinks']['small'] ? bookInfo['imageLinks']['small'] : bookInfo['imageLinks']['medium'] ? bookInfo['imageLinks']['medium'] : '' : '';
+        const img = this.getImageLink(bookInfo);
 
         return (
               <div>

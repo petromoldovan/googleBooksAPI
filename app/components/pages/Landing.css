@@ -129,10 +129,6 @@ span.dots:last-of-type {
     -ms-transform: rotate(90deg);
     -webkit-transform: rotate(90deg);
     transform: rotate(90deg);
-    -webkit-transition: all 100ms ease-out;
-    -moz-transition: all 100ms ease-out;
-    -o-transition: all 100ms ease-out;
-    transition: all 100ms ease-out;
 }
 .title div:first-child::after,
 .subtitle div:nth-child(2)::after,
@@ -148,6 +144,8 @@ span.dots:last-of-type {
     -ms-transform: rotate(-90deg);
     -webkit-transform: rotate(-90deg);
     transform: rotate(-90deg);
+    bottom: 12px;
+    right: 16px;
 }
 button:disabled, button:disabled:hover {
     cursor: not-allowed;
