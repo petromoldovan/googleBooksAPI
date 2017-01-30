@@ -13,7 +13,6 @@ class Landing extends React.Component {
 
         this.state = {
             booksPerPage: 20,
-            paginationIDX: 0,
             filter: 'title',
             filterAlpha: true
         };
@@ -27,10 +26,13 @@ class Landing extends React.Component {
     };
 
     onSubmit = (startIndex = null) => {
-        const {getBooks, setPaginationActivePage, searchTerm} = this.props;
+        const {getBooks, searchTerm, setPaginationActivePage} = this.props;
         const {booksPerPage} = this.state;
 
         if (!searchTerm) return null;
+
+        //set default pagination page
+        if (setPaginationActivePage && setPaginationActivePage instanceof Function) setPaginationActivePage(1);
 
         //format the search term
         const searchValue = searchTerm.toLowerCase().split(' ').join('+');
@@ -104,8 +106,6 @@ class Landing extends React.Component {
 
     onClickPagination = (idx) => {
         if (this.onSubmit) this.onSubmit(idx);
-
-        this.setState({paginationIDX: idx});
     };
 
     renderPagination() {
@@ -118,7 +118,7 @@ class Landing extends React.Component {
             paginationBoxes.push(i);
         }
 
-        paginationBoxes = slicePaginationBoxes(paginationBoxes, this.state.paginationIDX);
+        paginationBoxes = slicePaginationBoxes(paginationBoxes, paginationActivePage);
 
         paginationBoxes = paginationBoxes.map((value, id)=> {
             let className = '';
